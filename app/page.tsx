@@ -54,7 +54,6 @@ export default async function HomePage() {
 
       <div className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
       <header className="flex flex-col gap-4">
-        <p className="text-sm text-muted-foreground">Dobra</p>
         <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           Cerâmica autoral por Luiza
         </h1>

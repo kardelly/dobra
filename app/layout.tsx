@@ -75,7 +75,7 @@ export default async function RootLayout({
         </a>
         {topBannerText && (
           <div
-            className="w-full border-b border-border/80 bg-muted/60 px-4 py-2.5 text-center text-sm text-muted-foreground"
+            className="w-full border-b border-[#50c097]/30 bg-[#4b2e1a] px-4 py-2.5 text-center text-sm text-[#50c097]"
             role="region"
             aria-label="Aviso"
           >
