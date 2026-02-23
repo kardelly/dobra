@@ -14,7 +14,7 @@ export function buildWhatsAppMessage(
   const productUrl = `${siteUrl}/produtos/${productSlug}`;
   let text = `${baseMessage}\n\nProduto: ${productTitle}\nVer peça: ${productUrl}`;
   if (price != null) {
-    text += `\nPreço no site: A partir de R$ ${price.toLocaleString("pt-BR")}`;
+    text += `\nPreço no site: R$ ${price.toLocaleString("pt-BR")}`;
   }
   return text;
 }

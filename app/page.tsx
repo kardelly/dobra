@@ -126,8 +126,7 @@ export default async function HomePage() {
                 )}
                 {destaquePrincipal.startingPrice != null && (
                   <p className="mt-3 text-lg font-medium text-muted-foreground">
-                    A partir de R${" "}
-                    {destaquePrincipal.startingPrice.toLocaleString("pt-BR")}
+                    R$ {destaquePrincipal.startingPrice.toLocaleString("pt-BR")}
                   </p>
                 )}
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -227,8 +226,7 @@ export default async function HomePage() {
                       )}
                       {p.startingPrice != null && (
                         <p className="mt-2 text-sm font-medium text-muted-foreground">
-                          A partir de R${" "}
-                          {p.startingPrice.toLocaleString("pt-BR")}
+                          R$ {p.startingPrice.toLocaleString("pt-BR")}
                         </p>
                       )}
                     </CardContent>

@@ -202,7 +202,7 @@ export default async function ProductPage({
           ) : null}
           {product.startingPrice != null && (
             <p className="mt-2 text-lg font-medium text-muted-foreground">
-              A partir de R$ {product.startingPrice.toLocaleString("pt-BR")}
+              R$ {product.startingPrice.toLocaleString("pt-BR")}
             </p>
           )}
           {product.shortDescription && (

@@ -42,7 +42,7 @@ export const product = defineType({
     }),
     defineField({
       name: "startingPrice",
-      title: "Preço (a partir de)",
+      title: "Preço",
       type: "number",
       description: "Somente referência. Pode ser omitido.",
     }),
