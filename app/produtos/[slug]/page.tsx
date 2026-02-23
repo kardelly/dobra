@@ -63,15 +63,6 @@ const STATUS_LABEL: Record<string, string> = {
   sold_out: "Esgotado",
 };
 
-function buildWhatsAppUrl(
-  phone: string,
-  message: string,
-  productTitle: string
-): string {
-  const text = `${message}\n\nProduto: ${productTitle}`;
-  return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-}
-
 export default async function ProductPage({
   params,
 }: {
