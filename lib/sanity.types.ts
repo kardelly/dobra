@@ -19,6 +19,7 @@ export interface SanitySeo {
 export interface SanitySiteSettings {
   whatsappPhone?: string;
   whatsappDefaultMessage?: string;
+  heroImage?: { _type: string; asset?: { _ref: string } } | null;
   topBannerText?: string | null;
   seo?: SanitySeo | null;
 }

@@ -20,6 +20,13 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "instagramUrl", title: "Instagram URL", type: "url" }),
     defineField({
+      name: "heroImage",
+      title: "Imagem hero (home)",
+      type: "image",
+      description: "Imagem em destaque no topo da home. Recomendado: 1600×600px ou proporção larga.",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "topBannerText",
       title: "Faixa superior (opcional)",
       type: "string",

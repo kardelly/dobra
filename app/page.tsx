@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Sparkles, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,10 +43,27 @@ export default async function HomePage() {
     siteSettings?.whatsappDefaultMessage ??
     "Oi! Tenho interesse em um produto da Dobra.";
   const [destaquePrincipal, ...outrosDestaques] = featured ?? [];
+  const heroImage = siteSettings?.heroImage;
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <header className="flex flex-col gap-3">
+    <main>
+      {heroImage && (
+        <section className="relative w-full" aria-label="Destaque">
+          <div className="relative aspect-[21/9] w-full bg-muted min-h-[200px] sm:min-h-[280px]">
+            <Image
+              src={urlFor(heroImage).width(1600).height(600).url()}
+              alt=""
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </section>
+      )}
+
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
+      <header className="flex flex-col gap-4">
         <p className="text-sm text-muted-foreground">Dobra</p>
         <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           Cerâmica autoral por Luiza
@@ -67,13 +85,13 @@ export default async function HomePage() {
 
       {destaquePrincipal && (
         <section
-          className="mt-12"
+          className="mt-14 sm:mt-20"
           aria-labelledby="destaque-title"
         >
           <h2 id="destaque-title" className="sr-only">
             Destaque
           </h2>
-          <article className="overflow-hidden rounded-xl border border-border/80 bg-card shadow-sm">
+          <article className="overflow-hidden rounded-2xl bg-muted/30">
             <div className="grid gap-6 sm:grid-cols-2">
               {destaquePrincipal.image && (
                 <Link
@@ -153,7 +171,7 @@ export default async function HomePage() {
 
       {outrosDestaques.length > 0 && (
         <section
-          className="mt-12"
+          className="mt-14 sm:mt-20"
           aria-labelledby="outros-destaques-title"
         >
           <h2
@@ -162,7 +180,7 @@ export default async function HomePage() {
           >
             Outros destaques
           </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {outrosDestaques.map((p) => {
               const imageSrc = p.image
                 ? urlFor(p.image).width(600).height(600).url()
@@ -174,11 +192,11 @@ export default async function HomePage() {
               return (
                 <Card
                   key={p._id}
-                  className="overflow-hidden rounded-xl border-border/80 bg-card shadow-sm"
+                  className="overflow-hidden rounded-2xl border-0 bg-transparent shadow-none"
                 >
                   <Link href={`/produtos/${p.slug}`} className="block">
                     {imageSrc && (
-                      <div className="relative aspect-square bg-muted">
+                      <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted">
                         <Image
                           src={imageSrc}
                           alt={p.title}
@@ -188,12 +206,12 @@ export default async function HomePage() {
                         />
                       </div>
                     )}
-                    <CardContent className="p-6">
+                    <CardContent className="p-0 pt-4">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="text-base font-medium tracking-tight hover:underline">
                           {p.title}
                         </h3>
-                        <Badge variant="secondary">
+                        <Badge variant="secondary" className="shrink-0">
                           {STATUS_LABEL[p.status] ?? p.status}
                         </Badge>
                       </div>
@@ -210,7 +228,7 @@ export default async function HomePage() {
                       )}
                     </CardContent>
                   </Link>
-                  <CardContent className="border-t border-border/80 px-6 py-4">
+                  <CardContent className="p-0 pt-4">
                     <Button
                       asChild
                       size="sm"
@@ -234,33 +252,40 @@ export default async function HomePage() {
       )}
 
       <section
-        className="mt-12 grid gap-4 sm:grid-cols-2"
+        className="mt-20 grid gap-12 sm:grid-cols-2 sm:gap-16"
         aria-label="Como trabalhamos"
       >
-        <Card className="rounded-xl border-border/80 bg-card shadow-sm">
-          <CardContent className="p-6">
-            <h2 className="text-lg font-medium tracking-tight text-foreground">
+        <Card className="rounded-2xl border-0 bg-transparent shadow-none">
+          <CardContent className="p-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground" aria-hidden>
+              <Sparkles className="h-6 w-6" strokeWidth={1.5} />
+            </div>
+            <h2 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               Sob encomenda
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               A maioria das peças é feita sob demanda. Você escolhe, eu produzo
               e combinamos tudo pelo WhatsApp.
             </p>
           </CardContent>
         </Card>
 
-        <Card className="rounded-xl border-border/80 bg-card shadow-sm">
-          <CardContent className="p-6">
-            <h2 className="text-lg font-medium tracking-tight text-foreground">
+        <Card className="rounded-2xl border-0 bg-transparent shadow-none">
+          <CardContent className="p-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground/5 text-foreground" aria-hidden>
+              <Award className="h-6 w-6" strokeWidth={1.5} />
+            </div>
+            <h2 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               Acabamento profissional
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               Um site leve, rápido e claro — sem &quot;cara de loja
               gigante&quot;.
             </p>
           </CardContent>
         </Card>
       </section>
+      </div>
     </main>
   );
 }
