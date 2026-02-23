@@ -19,9 +19,9 @@ export function Header() {
           <Image
             src="/logo.png"
             alt="Dobra"
-            width={120}
-            height={40}
-            className="h-8 w-auto object-contain"
+            width={156}
+            height={52}
+            className="h-[2.6rem] w-auto object-contain"
             priority
           />
         </Link>
