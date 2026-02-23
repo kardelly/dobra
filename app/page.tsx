@@ -278,11 +278,11 @@ export default async function HomePage() {
               <Award className="h-6 w-6" strokeWidth={1.5} />
             </div>
             <h2 className="mt-5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-              Acabamento profissional
+              Acabamento cuidado
             </h2>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              Um site leve, rápido e claro — sem &quot;cara de loja
-              gigante&quot;.
+              Cada peça é finalizada à mão, com atenção aos detalhes — para
+              você ter cerâmica que dura e faz diferença no dia a dia.
             </p>
           </CardContent>
         </Card>
