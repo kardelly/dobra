@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dobra — Cerâmica autoral
 
-## Getting Started
+Loja/portfólio de cerâmica com catálogo editável no CMS. Conversão via WhatsApp (link com mensagem pré-preenchida, link do produto e preço). Sem checkout: o pedido é fechado em conversa.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend:** Next.js 16 (App Router), TypeScript, Tailwind CSS, shadcn/ui, fonte Inter
+- **CMS:** Sanity (Studio em `dobra-sanity/`)
+- **Host:** Vercel
+
+## Estrutura do repositório
+
+```
+Dobra/
+├── app/                 # Next.js (rotas, layout, páginas)
+├── components/         # React (layout, ui)
+├── lib/                 # Utils, Sanity client, queries, WhatsApp
+├── public/
+├── dobra-sanity/        # Sanity Studio (schemas, config)
+└── package.json         # App Next.js (raiz)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Site:** raiz do repo (`npm run dev`, `npm run build`).
+- **CMS:** pasta `dobra-sanity/` (projeto Sanity separado).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pré-requisitos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+
+- Conta no [Sanity](https://sanity.io) e projeto criado em [sanity.io/manage](https://sanity.io/manage)
 
-## Learn More
+## Variáveis de ambiente
 
-To learn more about Next.js, take a look at the following resources:
+### Site (Next.js)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Crie `.env.local` na raiz (copie de `.env.local.example`):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=seu_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SITE_URL=https://seu-dominio.vercel.app
+```
 
-## Deploy on Vercel
+- **Project ID:** mesmo do projeto Sanity em [sanity.io/manage](https://sanity.io/manage).
+- **NEXT_PUBLIC_SITE_URL:** URL do site em produção (metadata, Open Graph, link no WhatsApp).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Sanity Studio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Em `dobra-sanity/` crie `.env` (copie de `.env.example`):
+
+```env
+SANITY_STUDIO_PROJECT_ID=seu_project_id
+SANITY_STUDIO_DATASET=production
+```
+
+Use o mesmo Project ID do site.
+
+## Como rodar
+
+### Site (Next.js)
+
+```bash
+npm install
+npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000).
+
+### Sanity Studio (CMS)
+
+```bash
+cd dobra-sanity
+npm install
+npm run dev
+```
+
+Abre [http://localhost:3333](http://localhost:3333). Faça login com a conta Sanity do projeto e edite **Produto**, **Categoria** e **Configurações do Site**.
+
+### Build
+
+```bash
+npm run build
+npm run start
+```
+
+## Deploy
+
+- **Site:** conectar o repo na [Vercel](https://vercel.com); a raiz já é o app Next.js. Configurar as mesmas variáveis em **Settings → Environment Variables**.
+- **Studio:** opcionalmente `npm run deploy` dentro de `dobra-sanity/` para hospedar o Studio no Sanity.
+
+## Conteúdo no CMS
+
+- **Configurações do Site:** WhatsApp (número e mensagem padrão), faixa superior opcional, imagem hero da home, SEO padrão.
+- **Produto:** nome, slug, status (Disponível / Sob encomenda / Esgotado), quantidade (quando disponível), preço, fotos, descrição, destaque, mensagem WhatsApp opcional, SEO.
+- **Categoria:** nome, slug, ordem.
+
+## Scripts principais
+
+| Comando        | Onde    | Descrição              |
+|----------------|---------|------------------------|
+| `npm run dev`  | Raiz    | Sobe o site em dev     |
+| `npm run build`| Raiz    | Build de produção      |
+| `npm run dev`  | dobra-sanity | Sobe o Sanity Studio |
+
+## Licença
+
+Projeto privado.

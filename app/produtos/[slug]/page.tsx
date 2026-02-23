@@ -41,9 +41,10 @@ export async function generateMetadata({
     product.seo?.description?.trim() ||
     product.shortDescription?.trim() ||
     `Peça ${product.title} pelo WhatsApp. Cerâmica autoral Dobra.`;
+  // Imagem para compartilhamento: SEO ogImage ou primeira foto do produto (ex.: link no WhatsApp)
   const ogImage =
-    product.seo?.ogImage &&
-    urlFor(product.seo.ogImage).width(1200).height(630).url();
+    (product.seo?.ogImage && urlFor(product.seo.ogImage).width(1200).height(630).url()) ||
+    (product.images?.[0] && urlFor(product.images[0]).width(1200).height(630).url());
 
   return {
     title,
@@ -54,6 +55,9 @@ export async function generateMetadata({
       url: `${siteUrl}/produtos/${product.slug}`,
       ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
     },
+    ...(ogImage && {
+      twitter: { card: "summary_large_image" as const, images: [ogImage] },
+    }),
   };
 }
 
