@@ -37,3 +37,13 @@ export const productBySlugQuery = `*[_type == "product" && slug.current == $slug
 }`;
 
 export const productSlugsQuery = `*[_type == "product" && defined(slug.current)]{ "slug": slug.current }`;
+
+export const featuredProductsQuery = `*[_type == "product" && featured == true] | order(order asc, title asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  status,
+  startingPrice,
+  shortDescription,
+  "image": images[0]
+}`;

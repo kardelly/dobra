@@ -38,14 +38,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   let whatsappPhone: string | null = null;
+  let topBannerText: string | null = null;
   try {
     const settings = await sanityFetch<SanitySiteSettings | null>({
       query: siteSettingsQuery,
       revalidate: 300,
     });
     whatsappPhone = settings?.whatsappPhone ?? null;
+    topBannerText = settings?.topBannerText?.trim() ?? null;
   } catch {
-    // Sanity indisponível: footer sem link WhatsApp
+    // Sanity indisponível: footer sem link WhatsApp, sem faixa
   }
 
   const organizationJsonLd = {
@@ -71,6 +73,15 @@ export default async function RootLayout({
         >
           Pular para o conteúdo
         </a>
+        {topBannerText && (
+          <div
+            className="w-full border-b border-border/80 bg-muted/60 px-4 py-2.5 text-center text-sm text-muted-foreground"
+            role="region"
+            aria-label="Aviso"
+          >
+            {topBannerText}
+          </div>
+        )}
         <Header />
         <div id="main" className="flex-1">
           {children}
