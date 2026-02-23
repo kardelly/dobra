@@ -20,6 +20,12 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "instagramUrl", title: "Instagram URL", type: "url" }),
     defineField({
+      name: "topBannerText",
+      title: "Faixa superior (opcional)",
+      type: "string",
+      description: "Se preenchido, exibe uma faixa no topo da home. Ex: Entrega sob encomenda · Pedidos pelo WhatsApp.",
+    }),
+    defineField({
       name: "seo",
       title: "SEO padrão",
       type: "object",

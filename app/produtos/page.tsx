@@ -87,7 +87,7 @@ export default async function ProdutosPage() {
                   <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{p.shortDescription}</p>
                 )}
                 {p.startingPrice != null && (
-                  <p className="mt-2 text-sm font-medium">
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">
                     A partir de R$ {p.startingPrice.toLocaleString("pt-BR")}
                   </p>
                 )}

@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "sanity dev",
-    "build": "sanity build",
-    "start": "sanity start",
+    "dev": "node -r dotenv/config ./node_modules/.bin/sanity dev",
+    "build": "node -r dotenv/config ./node_modules/.bin/sanity build",
+    "deploy": "node -r dotenv/config ./node_modules/.bin/sanity deploy",
+    "start": "node -r dotenv/config ./node_modules/.bin/sanity start",
     "deploy": "sanity deploy"
   },
   "dependencies": {
+    "dotenv": "^17.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sanity": "^3.90.0",

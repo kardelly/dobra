@@ -184,7 +184,7 @@ export default async function ProductPage({
             </Badge>
           </div>
           {product.startingPrice != null && (
-            <p className="mt-2 text-lg font-medium">
+            <p className="mt-2 text-lg font-medium text-muted-foreground">
               A partir de R$ {product.startingPrice.toLocaleString("pt-BR")}
             </p>
           )}

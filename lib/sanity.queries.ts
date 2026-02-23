@@ -11,6 +11,7 @@ export const productsQuery = `*[_type == "product"] | order(order asc, title asc
 export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   whatsappPhone,
   whatsappDefaultMessage,
+  topBannerText,
   "seo": seo {
     title,
     description,
