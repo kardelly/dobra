@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navItems = [
-  { href: "/", label: "Início" },
   { href: "/produtos", label: "Produtos" },
   { href: "/sobre", label: "Sobre" },
 ] as const;
