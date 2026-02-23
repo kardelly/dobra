@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const navItems = [
   { href: "/", label: "Início" },
@@ -12,10 +13,17 @@ export function Header() {
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
         <Link
           href="/"
-          className="text-lg font-medium tracking-tight text-foreground hover:opacity-80"
+          className="flex items-center hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
           aria-label="Dobra — Página inicial"
         >
-          Dobra
+          <Image
+            src="/logo.png"
+            alt="Dobra"
+            width={120}
+            height={40}
+            className="h-8 w-auto object-contain"
+            priority
+          />
         </Link>
         <nav aria-label="Navegação principal" className="flex items-center gap-6">
           {navItems.map(({ href, label }) => (
