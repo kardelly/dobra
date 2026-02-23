@@ -72,15 +72,6 @@ export default async function HomePage() {
           Peças feitas à mão, com calma e carinho. Veja o catálogo e peça direto
           no WhatsApp.
         </p>
-
-        <div className="mt-2 flex gap-3">
-          <Button asChild>
-            <Link href="/produtos">Ver produtos</Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link href="/sobre">Sobre</Link>
-          </Button>
-        </div>
       </header>
 
       {destaquePrincipal && (
