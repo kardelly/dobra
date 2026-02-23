@@ -13,6 +13,7 @@ import {
 } from "@/lib/sanity.queries";
 import type { SanityProductDetail, SanitySiteSettings } from "@/lib/sanity.types";
 import { urlFor } from "@/lib/sanity.image";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://dobra.vercel.app";
@@ -98,7 +99,15 @@ export default async function ProductPage({
     siteSettings?.whatsappDefaultMessage ??
     "Oi! Tenho interesse em um produto da Dobra.";
   const message = product.whatsappMessage?.trim() || defaultMessage;
-  const whatsappUrl = phone ? buildWhatsAppUrl(phone, message, product.title) : "#";
+  const whatsappUrl = phone
+    ? buildWhatsAppUrl(
+        phone,
+        message,
+        product.title,
+        product.slug,
+        product.startingPrice
+      )
+    : "#";
   const images = product.images ?? [];
 
   const productJsonLd = {
@@ -183,6 +192,19 @@ export default async function ProductPage({
               {STATUS_LABEL[product.status] ?? product.status}
             </Badge>
           </div>
+          {(product.status === "available" && product.quantityAvailable != null) ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {product.quantityAvailable} {product.quantityAvailable === 1 ? "unidade disponível" : "unidades disponíveis"}
+            </p>
+          ) : product.status === "made_to_order" ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Sob encomenda — produção após o pedido.
+            </p>
+          ) : product.status === "sold_out" ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Esgotado no momento.
+            </p>
+          ) : null}
           {product.startingPrice != null && (
             <p className="mt-2 text-lg font-medium text-muted-foreground">
               A partir de R$ {product.startingPrice.toLocaleString("pt-BR")}

@@ -8,23 +8,13 @@ import { sanityFetch } from "@/lib/sanity";
 import { featuredProductsQuery, siteSettingsQuery } from "@/lib/sanity.queries";
 import type { SanityProduct, SanitySiteSettings } from "@/lib/sanity.types";
 import { urlFor } from "@/lib/sanity.image";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const STATUS_LABEL: Record<string, string> = {
   available: "Disponível",
   made_to_order: "Sob encomenda",
   sold_out: "Esgotado",
 };
-
-function buildWhatsAppUrl(
-  phone: string,
-  message: string,
-  productTitle?: string
-): string {
-  const text = productTitle
-    ? `${message}\n\nProduto: ${productTitle}`
-    : message;
-  return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-}
 
 export default async function HomePage() {
   let featured: SanityProduct[] = [];
@@ -120,6 +110,15 @@ export default async function HomePage() {
                     {destaquePrincipal.title}
                   </Link>
                 </h3>
+                {(destaquePrincipal.status === "available" && destaquePrincipal.quantityAvailable != null) ? (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {destaquePrincipal.quantityAvailable} {destaquePrincipal.quantityAvailable === 1 ? "unidade disponível" : "unidades disponíveis"}
+                  </p>
+                ) : destaquePrincipal.status === "made_to_order" ? (
+                  <p className="mt-2 text-sm text-muted-foreground">Sob encomenda — produção após o pedido.</p>
+                ) : destaquePrincipal.status === "sold_out" ? (
+                  <p className="mt-2 text-sm text-muted-foreground">Esgotado no momento.</p>
+                ) : null}
                 {destaquePrincipal.shortDescription && (
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-3">
                     {destaquePrincipal.shortDescription}
@@ -143,7 +142,9 @@ export default async function HomePage() {
                         href={buildWhatsAppUrl(
                           phone,
                           defaultMessage,
-                          destaquePrincipal.title
+                          destaquePrincipal.title,
+                          destaquePrincipal.slug,
+                          destaquePrincipal.startingPrice
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -177,7 +178,13 @@ export default async function HomePage() {
                 ? urlFor(p.image).width(600).height(600).url()
                 : null;
               const whatsappUrl = phone
-                ? buildWhatsAppUrl(phone, defaultMessage, p.title)
+                ? buildWhatsAppUrl(
+                    phone,
+                    defaultMessage,
+                    p.title,
+                    p.slug,
+                    p.startingPrice
+                  )
                 : "#";
 
               return (
@@ -206,6 +213,13 @@ export default async function HomePage() {
                           {STATUS_LABEL[p.status] ?? p.status}
                         </Badge>
                       </div>
+                      {(p.status === "available" && p.quantityAvailable != null) ? (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {p.quantityAvailable} {p.quantityAvailable === 1 ? "unidade" : "unidades"}
+                        </p>
+                      ) : p.status === "made_to_order" ? (
+                        <p className="mt-1 text-xs text-muted-foreground">Sob encomenda</p>
+                      ) : null}
                       {p.shortDescription && (
                         <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
                           {p.shortDescription}

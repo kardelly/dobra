@@ -3,6 +3,7 @@ export const productsQuery = `*[_type == "product"] | order(order asc, title asc
   title,
   "slug": slug.current,
   status,
+  quantityAvailable,
   startingPrice,
   shortDescription,
   "image": images[0]
@@ -25,6 +26,7 @@ export const productBySlugQuery = `*[_type == "product" && slug.current == $slug
   title,
   "slug": slug.current,
   status,
+  quantityAvailable,
   startingPrice,
   shortDescription,
   description,
@@ -44,6 +46,7 @@ export const featuredProductsQuery = `*[_type == "product" && featured == true] 
   title,
   "slug": slug.current,
   status,
+  quantityAvailable,
   startingPrice,
   shortDescription,
   "image": images[0]

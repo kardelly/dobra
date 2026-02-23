@@ -5,6 +5,7 @@ export interface SanityProduct {
   title: string;
   slug: string;
   status: ProductStatus;
+  quantityAvailable?: number | null;
   startingPrice?: number;
   shortDescription?: string | null;
   image?: { _type: string; asset: { _ref: string } } | null;
@@ -35,6 +36,7 @@ export interface SanityProductDetail {
   title: string;
   slug: string;
   status: ProductStatus;
+  quantityAvailable?: number | null;
   startingPrice?: number;
   shortDescription?: string | null;
   description?: PortableTextBlock[] | null;

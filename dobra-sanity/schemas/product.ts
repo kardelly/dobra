@@ -34,6 +34,13 @@ export const product = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: "quantityAvailable",
+      title: "Quantidade disponível",
+      type: "number",
+      description: "Preencha só quando o status for \"Disponível\". Deixe vazio para sob encomenda ou esgotado.",
+      hidden: ({ parent }) => parent?.status !== "available",
+    }),
+    defineField({
       name: "startingPrice",
       title: "Preço (a partir de)",
       type: "number",
